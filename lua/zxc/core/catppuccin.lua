@@ -13,4 +13,22 @@ catppuccin.setup({
 		strings = "NONE",
 		variables = "NONE",
 	},
+	integrations = {
+		treesitter = true,
+		native_lsp = {
+			enabled = true,
+			virtual_text = {
+				errors = "NONE",
+				hints = "NONE",
+				warnings = "NONE",
+				information = "NONE",
+			},
+			underlines = {
+				errors = "underline",
+				hints = "underline",
+				warnings = "underline",
+				information = "underline",
+			},
+		},
+	},
 })

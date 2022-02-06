@@ -79,6 +79,13 @@ M.on_attach = function(client)
 	if client.name == "tsserver" or "jsonls" then
 		client.resolved_capabilities.document_formatting = false
 	end
+
+	if client.name == "tsserver" then
+		local config = {
+			virtual_text = false,
+		}
+		vim.diagnostic.config(config)
+	end
 	lsp_keymaps()
 	lsp_highlight_document(client)
 end
