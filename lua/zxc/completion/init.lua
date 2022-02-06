@@ -1,0 +1,1 @@
+require('zxc.completion.cmp')
