@@ -1,5 +1,8 @@
--- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 local workspace_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+-- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
   -- The command that starts the language server
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
@@ -61,7 +64,21 @@ local config = {
   init_options = {
     bundles = {}
   },
+	capabilities = capabilities
 }
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
 require('jdtls').start_or_attach(config)
+
+
+	local opts = { noremap = true, silent = true, buffer = 0 }
+	local keymap = vim.keymap.set
+	keymap("n", "K", vim.lsp.buf.hover, opts)
+	keymap("n", "gd", vim.lsp.buf.definition, opts)
+	keymap("n", "gT", vim.lsp.buf.type_definition, opts)
+	keymap("n", "gi", vim.lsp.buf.implementation, opts)
+	keymap("n", "<leader>dj", vim.diagnostic.goto_next, opts)
+	keymap("n", "<leader>dk", vim.diagnostic.goto_prev, opts)
+	keymap("n", "<leader>dl", "<cmd>Telescope diagnostics<cr>", opts)
+	keymap("n", "<leader>r", vim.lsp.buf.rename, opts)
+
