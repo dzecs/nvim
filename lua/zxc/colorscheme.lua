@@ -18,19 +18,3 @@ colorizer.setup({
 	"javascript",
 	css = { css = true },
 })
--- Cattppucin theme
---
-local catppuccin_status_ok, catppuccin = pcall(require, "catppuccin")
-if not catppuccin_status_ok then
-	return
-end
-
-catppuccin.setup({
-	styles = {
-		comments = "NONE",
-		functions = "NONE",
-		keywords = "NONE",
-		strings = "NONE",
-		variables = "NONE",
-	},
-})

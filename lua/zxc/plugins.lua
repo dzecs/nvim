@@ -57,6 +57,7 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-buffer")
 	use("hrsh7th/cmp-path")
 	use("saadparwaiz1/cmp_luasnip")
+	use 'mfussenegger/nvim-jdtls'
 
 	-- Snippets
 
