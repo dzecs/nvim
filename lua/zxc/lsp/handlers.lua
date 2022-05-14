@@ -72,13 +72,35 @@ local function lsp_keymaps()
 	keymap("n", "<leader>dl", "<cmd>Telescope diagnostics<cr>", opts)
 	keymap("n", "<leader>r", vim.lsp.buf.rename, opts)
 
-	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({ async = true })' ]])
 end
 
-M.on_attach = function(client)
-	if client.name == "tsserver" or "jsonls" then
-		client.server_capabilities.document_formatting = false
-	end
+local lsp_formatting = function(bufnr)
+    vim.lsp.buf.format({
+        filter = function(clients)
+            -- filter out clients that you don't want to use
+            return vim.tbl_filter(function(client)
+                return client.name ~= "tsserver"
+            end, clients)
+        end,
+        bufnr = bufnr,
+    })
+end
+
+
+M.on_attach = function(client, bufnr)
+	-- if you want to set up formatting on save, you can use this as a callback
+	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+    if client.supports_method("textDocument/formatting") then
+        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                lsp_formatting(bufnr)
+            end,
+        })
+    end
 
 	if client.name == "tsserver" then
 		local config = {
