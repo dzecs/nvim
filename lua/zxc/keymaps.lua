@@ -11,6 +11,9 @@ vim.g.maplocalleader = " "
 -- Normal mode
 keymap("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", opts) -- Open File explorer
 
+-- Toggleterm
+keymap("n", "<S-t>", "<cmd>ToggleTerm<cr>", opts) -- Open File explorer
+
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
