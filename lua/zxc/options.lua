@@ -17,7 +17,6 @@ o.splitright = true
 o.cmdheight = 2
 o.termguicolors = true
 
-
 --Make line numbers default
 o.number = true
 o.relativenumber = true
@@ -27,7 +26,7 @@ o.scrolloff = 8
 o.wrap = true
 
 --Enable mouse mode
-o.mouse = 'a'
+o.mouse = "a"
 
 --Enable break indent
 o.breakindent = true
@@ -38,20 +37,20 @@ o.smartcase = true
 
 --Decrease update time
 o.updatetime = 250
-o.signcolumn = 'yes'
+o.signcolumn = "yes"
 
 -- System Clipboard
-o.clipboard = 'unnamedplus'
+o.clipboard = "unnamedplus"
 
 --File backup settings
 o.swapfile = false
 o.backup = false
 o.undofile = true
-o.undodir = os.getenv 'HOME' .. '/.config/nvim/.undo'
+o.undodir = os.getenv("HOME") .. "/.config/nvim/.undo"
 
 -- Set completeopt to have a better completion experience
-o.completeopt = {"menu", "menuone", "noselect"}
+o.completeopt = { "menu", "menuone", "noselect" }
 
-vim.cmd "set whichwrap+=<,>,[,],h,l"
-vim.cmd[[set iskeyword+=-]]
-vim.cmd[[set formatoptions-=cro]]
+vim.cmd("set whichwrap+=<,>,[,],h,l")
+vim.cmd([[set iskeyword+=-]])
+vim.cmd([[set formatoptions-=cro]])

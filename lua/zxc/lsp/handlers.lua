@@ -75,7 +75,6 @@ local function lsp_keymaps()
 	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({ bufnr = bufnr })' ]])
 end
 
-
 local lsp_formatting = function(bufnr)
 	vim.lsp.buf.format({
 		filter = function(clients)

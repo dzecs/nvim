@@ -1,1 +1,1 @@
-require('zxc.completion.cmp')
+require("zxc.completion.cmp")
