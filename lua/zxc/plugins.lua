@@ -69,7 +69,7 @@ return packer.startup(function(use)
 	use("nvim-telescope/telescope.nvim")
 	use("nvim-telescope/telescope-media-files.nvim")
 
-	-- Terminaluse 
+	-- Terminaluse
 	use("akinsho/toggleterm.nvim")
 
 	-- Treesitter
@@ -85,7 +85,10 @@ return packer.startup(function(use)
 
 	-- Theme
 
-	use({ "catppuccin/nvim", as = "catppuccin" })
+	use("ful1e5/onedark.nvim")
+	use("RRethy/nvim-base16")
+	-- use({ "catppuccin/nvim", as = "catppuccin" })
+	use("dzecs/catppuccin-NoItalics") -- My fork without Italics
 	use("kyazdani42/nvim-web-devicons")
 	use("kyazdani42/nvim-tree.lua")
 	use("lukas-reineke/indent-blankline.nvim")

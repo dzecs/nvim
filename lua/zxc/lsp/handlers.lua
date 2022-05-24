@@ -72,56 +72,36 @@ local function lsp_keymaps()
 	keymap("n", "<leader>dl", "<cmd>Telescope diagnostics<cr>", opts)
 	keymap("n", "<leader>r", vim.lsp.buf.rename, opts)
 
-	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({bufnr = bufnr})' ]])
+	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({ bufnr = bufnr })' ]])
 end
 
--- Formatting on save null-ls
 
+local lsp_formatting = function(bufnr)
+	vim.lsp.buf.format({
+		filter = function(clients)
+			-- filter out clients that you don't want to use
+			return vim.tbl_filter(function(client)
+				return client.name ~= "tsserver"
+			end, clients)
+		end,
+		bufnr = bufnr,
+	})
+end
+
+-- if you want to set up formatting on save, you can use this as a callback
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-require("null-ls").setup({
-	-- you can reuse a shared lspconfig on_attach callback here
-	on_attach = function(client, bufnr)
-		if client.supports_method("textDocument/formatting") then
-			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = augroup,
-				buffer = bufnr,
-				callback = function()
-					-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-					vim.lsp.buf.format({ bufnr = bufnr })
-				end,
-			})
-		end
-	end,
-})
 
 M.on_attach = function(client, bufnr)
-
-	-- Avoid conflict on formatting
-	local lsp_formatting = function()
-		vim.lsp.buf.format({
-			filter = function(clients)
-				-- filter out clients that you don't want to use
-				return vim.tbl_filter(function()
-					return client.name ~= "tsserver" or "sumneko_lua"
-				end, clients)
-			end,
-			bufnr = bufnr,
-		})
-	end
-
-	-- add to your shared on_attach callback
 	if client.supports_method("textDocument/formatting") then
 		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = augroup,
 			buffer = bufnr,
 			callback = function()
-				lsp_formatting()
+				lsp_formatting(bufnr)
 			end,
 		})
 	end
-
 	if client.name == "tsserver" then
 		local config = {
 			virtual_text = false,

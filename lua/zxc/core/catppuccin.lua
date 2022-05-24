@@ -8,7 +8,7 @@ end
 catppuccin.setup({
 	styles = {
 		comments = "NONE",
-		functions = "NONE",
+		functions = "bold",
 		keywords = "NONE",
 		strings = "NONE",
 		variables = "NONE",
@@ -22,12 +22,6 @@ catppuccin.setup({
 				hints = "NONE",
 				warnings = "NONE",
 				information = "NONE",
-			},
-			underlines = {
-				errors = "underline",
-				hints = "underline",
-				warnings = "underline",
-				information = "underline",
 			},
 		},
 	},
